@@ -1,0 +1,52 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap');
+@import "tailwindcss";
+@plugin "daisyui";
+
+
+body {
+  
+ @apply bg-linear-to-br from-gray-900 to-blue-900 text-white;
+  font-family: "Orbitron", sans-serif;
+}
+.navbarFont {
+  font-family: "Orbitron", sans-serif;
+ background-color: #0D6EFD;
+}
+
+.footerFont {
+  font-family: "Orbitron", sans-serif;
+ background-color: #0D6EFD;
+}
+
+.Orbitron {
+  font-family: "Orbitron", sans-serif;
+}
+
+a.active {
+  
+  background-color: #8eb9dc;
+  border-radius: 5px;
+  padding: 5px;
+  box-shadow: #8eb9dc 0px 0px 30px;
+  font-weight: bold;
+  border-color: black;
+  color: black;
+  transition: all 0.3s ease-in-out;
+  
+}
+
+.CardStyle{
+  box-shadow: #8eb9dc 0px 0px 18px;
+}
+
+
+.btn {
+  @apply transition-transform duration-200 ease-in-out hover:scale-105 hover:shadow-lg hover:shadow-blue-500/50;
+}
+
+.input {
+  background-color: black;
+}
+
+
+
