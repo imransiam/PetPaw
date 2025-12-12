@@ -9,7 +9,7 @@ import Marquee from "react-fast-marquee";
 const Home = () => {
   const games = useLoaderData();
   const previewGames = [...games]
-    .sort((a, b) => parseFloat(b.ratings) - parseFloat(a.ratings))
+    .sort((a, b) => new Date(b.CreatedAt) - new Date(a.CreatedAt))
     .slice(0, 6);
   return (
     <>
@@ -40,7 +40,7 @@ const Home = () => {
      
       <div className='flex-1 grid grid-cols-1 md:grid-cols-2 gap-6'>
         {
-            previewGames.map(game => <GameCard key={game.id} game={game}></GameCard>)
+            previewGames.map(game => <GameCard key={game._id} game={game}></GameCard>)
         }
 
       </div>

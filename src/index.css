@@ -1,36 +1,36 @@
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cherry+Cream+Soda&display=swap');
 @import "tailwindcss";
 @plugin "daisyui";
 
 
 body {
   
- @apply bg-linear-to-br from-gray-900 to-blue-900 text-white;
-  font-family: "Orbitron", sans-serif;
+ @apply bg-amber-50 text-black;
+  font-family: "Cherry Cream Soda", sans-serif;
 }
 .navbarFont {
-  font-family: "Orbitron", sans-serif;
+  font-family: "Cherry Cream Soda", sans-serif;
  background-color: #0D6EFD;
 }
 
 .footerFont {
-  font-family: "Orbitron", sans-serif;
+  font-family: "Cherry Cream Soda", sans-serif;
  background-color: #0D6EFD;
 }
 
 .Orbitron {
-  font-family: "Orbitron", sans-serif;
+  font-family: "Cherry Cream Soda", sans-serif;
 }
 
 a.active {
   
-  background-color: #8eb9dc;
+  background-color: #bf6eb8;
   border-radius: 5px;
   padding: 5px;
   box-shadow: #8eb9dc 0px 0px 30px;
   font-weight: bold;
   border-color: black;
-  color: black;
+  color: purple;
   transition: all 0.3s ease-in-out;
   
 }

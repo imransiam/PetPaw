@@ -16,7 +16,7 @@ const Games = () => {
       <h2 className='text-4xl font-bold text-center'>All Games</h2>
       <div className='flex-1 grid grid-cols-1 md:grid-cols-2  gap-6 mt-8 '>
         {
-            games.map(game => <GameCard key={game.id} game={game}></GameCard>)
+            games.map(game => <GameCard key={game._id} game={game}></GameCard>)
         }
       </div>
       

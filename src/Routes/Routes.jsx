@@ -14,6 +14,7 @@ import Page404 from "../Pages/Page404";
 import AddListing from "../Pages/AddListing";
 import MyListings from "../Pages/MyListings";
 import MyOrders from "../Pages/MyOrders";
+import axios from "axios";
 const router = createBrowserRouter([
   {
     path: '/',
@@ -22,12 +23,12 @@ const router = createBrowserRouter([
       {
         path: '/',
         element: <Home></Home>,
-        loader: () => fetch('../data.json'),
+        loader: () => axios.get('http://localhost:5000/services').then(res=> res.data ).catch(err=> console.error(err)),
       },
       {
         path: '/games',
         element: <Games></Games>,
-        loader: () => fetch('../data.json'),
+         loader: () => axios.get('http://localhost:5000/services').then(res=> res.data ).catch(err=> console.error(err)),
       },
       {
         path: '/about',
@@ -67,7 +68,7 @@ const router = createBrowserRouter([
     element: <PrivateRoute>
       <GameDetails></GameDetails>
     </PrivateRoute>,
-    loader: ()=> fetch('../data.json'),
+    loader: () => axios.get('http://localhost:5000/services').then(res=> res.data ).catch(err=> console.error(err)),
   },
   {
     path: '/user',
