@@ -4,9 +4,9 @@ import AuthLayout from "../Layout/AuthLayout";
 import Login from "../Pages/Login";
 import Registration from "../Pages/Registration";
 import Home from "../Pages/Home";
-import Games from "../Pages/Games";
+import Services from "../Pages/Services";
 import About from "../Pages/About";
-import GameDetails from "../Pages/GameDetails";
+import ServiceDetails from "../Pages/ServiceDetails";
 import PrivateRoute from "../Provider/PrivateRoute";
 import UserDetails from "../Pages/UserDetails";
 import UpdataUserDetails from "../Pages/UpdataUserDetails";
@@ -15,82 +15,62 @@ import AddListing from "../Pages/AddListing";
 import MyListings from "../Pages/MyListings";
 import MyOrders from "../Pages/MyOrders";
 import axios from "axios";
+
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <HomeLayout></HomeLayout>,
+    element: <HomeLayout />,
     children: [
       {
         path: '/',
-        element: <Home></Home>,
-        loader: () => axios.get('http://localhost:5000/services').then(res=> res.data ).catch(err=> console.error(err)),
+        element: <Home />,
+        loader: () => axios.get('http://localhost:5000/services').then(res => res.data).catch(err => console.error(err)),
       },
       {
-        path: '/games',
-        element: <Games></Games>,
-         loader: () => axios.get('http://localhost:5000/services').then(res=> res.data ).catch(err=> console.error(err)),
+        path: '/services',
+        element: <Services />,
+        loader: () => axios.get('http://localhost:5000/services').then(res => res.data).catch(err => console.error(err)),
       },
       {
-  path: '/games/:category',
-  element: <Games />,
-  loader: ({ params }) =>
-    axios
-      .get(`http://localhost:5000/services?category=${params.category}`)
-      .then(res => res.data),
-},
+        path: '/services/:category',
+        element: <Services />,
+        loader: ({ params }) =>
+          axios.get(`http://localhost:5000/services?category=${params.category}`).then(res => res.data),
+      },
       {
         path: '/about',
-        element: <About></About>,
+        element: <About />,
       },
       {
         path: '/AddListing',
-        element: <AddListing></AddListing>,
+        element: <AddListing />,
       },
       {
         path: '/MyListings',
-        element: <MyListings></MyListings>,
+        element: <MyListings />,
       },
       {
         path: '/Orders',
-        element: <MyOrders></MyOrders>,
+        element: <MyOrders />,
       },
     ]
-
   },
   {
     path: 'auth',
-    element: <AuthLayout></AuthLayout>,
+    element: <AuthLayout />,
     children: [
-      {
-        path: '/auth/login',
-        element: <Login></Login>,
-      },
-      {
-        path: '/auth/register',
-        element: <Registration></Registration>
-      }
+      { path: '/auth/login', element: <Login /> },
+      { path: '/auth/register', element: <Registration /> }
     ]
   },
   {
-    path: 'gameDetails/:id',
-    element: <PrivateRoute>
-      <GameDetails></GameDetails>
-    </PrivateRoute>,
-    loader: () => axios.get('http://localhost:5000/services').then(res=> res.data ).catch(err=> console.error(err)),
+    path: 'serviceDetails/:id',
+    element: <PrivateRoute><ServiceDetails /></PrivateRoute>,
+    loader: () => axios.get('http://localhost:5000/services').then(res => res.data).catch(err => console.error(err)),
   },
-  {
-    path: '/user',
-    element: <UserDetails></UserDetails>,
-    
-  },
-  {
-        path: '/updateProfile',
-        element: <UpdataUserDetails></UpdataUserDetails>
-      },
-  {
-    path: '*',
-    element: <Page404></Page404>,
-  }
-])
+  { path: '/user', element: <UserDetails /> },
+  { path: '/updateProfile', element: <UpdataUserDetails /> },
+  { path: '*', element: <Page404 /> }
+]);
 
 export default router;

@@ -16,13 +16,13 @@ const Navbar = () => {
   const navLinks = (
     <>
       <NavLink to='/' className={({ isActive }) => (isActive ? 'font-bold' : 'hover:opacity-70')}>Home</NavLink>
-      <NavLink to='/games' className={({ isActive }) => (isActive ? 'font-bold' : 'hover:opacity-70')}>Games</NavLink>
+      <NavLink to='/services' className={({ isActive }) => (isActive ? 'font-bold' : 'hover:opacity-70')}>Services</NavLink>
       <NavLink to='/about' className={({ isActive }) => (isActive ? 'font-bold' : 'hover:opacity-70')}>About</NavLink>
       {user && (
         <>
           <NavLink to='/AddListing' className={({ isActive }) => (isActive ? 'font-bold' : 'hover:opacity-70')}>Add Listing</NavLink>
           <NavLink to='/MyListings' className={({ isActive }) => (isActive ? 'font-bold' : 'hover:opacity-70')}>My Listings</NavLink>
-          <NavLink to='/Orders' className={({ isActive }) => (isActive ? 'font-bold,' : 'hover:opacity-70')}>Orders</NavLink>
+          <NavLink to='/Orders' className={({ isActive }) => (isActive ? 'font-bold' : 'hover:opacity-70')}>Orders</NavLink>
         </>
       )}
     </>

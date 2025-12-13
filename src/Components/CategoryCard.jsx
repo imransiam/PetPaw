@@ -13,7 +13,7 @@ const CategoryCard = ({ title, description, image, category }) => {
         <p>{description}</p>
 
         <div className="card-actions justify-end">
-          <Link to={`/games/${category}`}>
+          <Link to={`/services/${category}`}>
             <button className="btn btn-primary">Explore</button>
           </Link>
         </div>
