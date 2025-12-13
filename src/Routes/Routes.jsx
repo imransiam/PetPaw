@@ -31,6 +31,14 @@ const router = createBrowserRouter([
          loader: () => axios.get('http://localhost:5000/services').then(res=> res.data ).catch(err=> console.error(err)),
       },
       {
+  path: '/games/:category',
+  element: <Games />,
+  loader: ({ params }) =>
+    axios
+      .get(`http://localhost:5000/services?category=${params.category}`)
+      .then(res => res.data),
+},
+      {
         path: '/about',
         element: <About></About>,
       },
