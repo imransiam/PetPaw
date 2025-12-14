@@ -1,9 +1,19 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../Provider/AuthProvider';
+import { useParams } from 'react-router';
+import axios from 'axios';
 
 const UpdateMyListing = () => {
+    const {id} = useParams();
    const [category, setCategory] = useState('');
    const {user}= useContext(AuthContext);
+   const [service, setService] = useState('');
+   useEffect(()=>{
+axios.get(`http://localhost:5000/services/${id}`)
+.then(res=>setService(res.data))
+   },[id])
+   console.log(service);
+   
    const handleUpdate =()=>{
 
    }
