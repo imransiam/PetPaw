@@ -15,6 +15,7 @@ import AddListing from "../Pages/AddListing";
 import MyListings from "../Pages/MyListings";
 import MyOrders from "../Pages/MyOrders";
 import axios from "axios";
+import UpdateMyListing from "../Pages/UpdateMyListing";
 
 const router = createBrowserRouter([
   {
@@ -50,7 +51,11 @@ const router = createBrowserRouter([
         element: <MyListings />,
       },
       {
-        path: '/Orders',
+        path: '/UpdateMyListings/:id',
+        element: <UpdateMyListing />,
+      },
+      {
+        path: '/Orders', 
         element: <MyOrders />,
       },
     ]

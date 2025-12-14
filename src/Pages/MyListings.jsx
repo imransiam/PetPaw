@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../Provider/AuthProvider';
+import { Link } from 'react-router';
 
 const MyListings = () => {
   const [myservices, setMyServices] = useState([]);
@@ -48,7 +49,7 @@ const MyListings = () => {
         <td>Purple</td>
         <td className='flex space-x-3'>
           <button className="btn btn-error text-[15px] btn-xs">Delete</button>
-          <button className="btn btn-primary btn-xs text-[15px]">Edit</button>
+          <Link to={`/UpdateMyListings/${service._id}`}><button className="btn btn-primary btn-xs text-[15px]">Edit</button></Link>
         </td>
       </tr>
         ))
