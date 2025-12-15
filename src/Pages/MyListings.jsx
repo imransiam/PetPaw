@@ -19,6 +19,8 @@ const MyListings = () => {
       console.log(res.data);
       const remaining = myservices.filter(service => service._id !== id);
       setMyServices(remaining);
+      console.log(remaining);
+      
     })
     .catch(err => console.log(err)
     )
@@ -35,7 +37,7 @@ const MyListings = () => {
      
       {
         myservices?.map(service => (
-          <tr>
+          <tr key={service._id}>
         
         <td>
           <div className="flex items-center gap-3">
@@ -59,7 +61,7 @@ const MyListings = () => {
         </td>
         <td>Purple</td>
         <td className='flex space-x-3'>
-          <button onChange={()=> handleDelete(service?._id)} className="btn btn-error text-[15px] btn-xs">Delete</button>
+          <button onClick={()=> handleDelete(service?._id)} className="btn btn-error text-[15px] btn-xs">Delete</button>
           <Link to={`/UpdateMyListings/${service._id}`}><button className="btn btn-primary btn-xs text-[15px]">Edit</button></Link>
         </td>
       </tr>
