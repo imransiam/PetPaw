@@ -1,20 +1,53 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../Provider/AuthProvider';
-import { useParams } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 import axios from 'axios';
 
 const UpdateMyListing = () => {
     const {id} = useParams();
-   const [category, setCategory] = useState('');
+   
    const {user}= useContext(AuthContext);
    const [service, setService] = useState('');
+   const [category, setCategory] = useState(service?.category);
+   const navigate = useNavigate();
    useEffect(()=>{
 axios.get(`http://localhost:5000/services/${id}`)
-.then(res=>setService(res.data))
+.then(res=>{setService(res.data)
+  setCategory(res.data.category);
+})
    },[id])
    console.log(service);
    
-   const handleUpdate =()=>{
+   const handleUpdate =(e)=>{
+    e.preventDefault();
+    const form = e.target;
+    const name = form.name.value;
+    const price = parseInt(form.price.value);
+    const location = form.location.value;
+    const description = form.description.value;
+    const imageUrl = form.imageUrl.value;
+    const date = form.date.value;
+    const email = form.email.value;
+    const formData = {
+      name,
+      category,
+      price,
+      location,
+      description,
+      imageUrl,
+      date,
+      email,
+      CreatedAt: service?.CreatedAt,
+    }
+    console.log(formData);
+
+    axios.put(`http://localhost:5000/updateListing/${id}`,formData)
+    .then (res=>{
+      console.log(res.data);
+      navigate('/MyListings');
+      
+    })
+    .catch(err=>console.error(err));
 
    }
   return (
@@ -26,6 +59,7 @@ axios.get(`http://localhost:5000/services/${id}`)
                 Product/Pet Name *
               </label>
               <input
+              defaultValue={service?.name}
               required
               name='name'
                 type="text"
@@ -40,6 +74,7 @@ axios.get(`http://localhost:5000/services/${id}`)
                 Category *
               </label>
               <select 
+                  
               name='category'
                 required
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition bg-white"
@@ -62,6 +97,7 @@ axios.get(`http://localhost:5000/services/${id}`)
               <div className="relative">
                 <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500">$</span>
                 <input
+                  defaultValue={service?.price}
                   required
                 name='price'
                   type="number"
@@ -82,6 +118,7 @@ axios.get(`http://localhost:5000/services/${id}`)
                 Location *
               </label>
               <input
+              defaultValue={service?.location}
                 required
                 name='location'
                 type="text"
@@ -96,6 +133,7 @@ axios.get(`http://localhost:5000/services/${id}`)
                 Description *
               </label>
               <textarea
+              defaultValue={service?.description}
                 required
                 name='description'
                 rows="4"
@@ -110,6 +148,7 @@ axios.get(`http://localhost:5000/services/${id}`)
                 Image URL *
               </label>
               <input
+              defaultValue={service?.imageUrl}
                 required
                 name='imageUrl'
                 type="url"
@@ -124,6 +163,7 @@ axios.get(`http://localhost:5000/services/${id}`)
                 Date *
               </label>
               <input
+              defaultValue={service?.date}
                 required
                 name='date'
                 type="date"
@@ -153,7 +193,7 @@ axios.get(`http://localhost:5000/services/${id}`)
                 type="submit"
                 className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-6 rounded-lg transition duration-200 transform hover:scale-105 shadow-lg"
               >
-                Add Listing
+                Update Listing
               </button>
             </div>
           </div>
