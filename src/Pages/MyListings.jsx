@@ -13,6 +13,17 @@ const MyListings = () => {
   },[user?.email])
   console.log(myservices);
   
+  const handleDelete = (id) => {
+    axios.delete(`http://localhost:5000/deleteListing/${id}`)
+    .then(res=> {
+      console.log(res.data);
+      const remaining = myservices.filter(service => service._id !== id);
+      setMyServices(remaining);
+    })
+    .catch(err => console.log(err)
+    )
+
+  }
   return (
     <div>
       My Listings Page
@@ -48,7 +59,7 @@ const MyListings = () => {
         </td>
         <td>Purple</td>
         <td className='flex space-x-3'>
-          <button className="btn btn-error text-[15px] btn-xs">Delete</button>
+          <button onChange={()=> handleDelete(service?._id)} className="btn btn-error text-[15px] btn-xs">Delete</button>
           <Link to={`/UpdateMyListings/${service._id}`}><button className="btn btn-primary btn-xs text-[15px]">Edit</button></Link>
         </td>
       </tr>
