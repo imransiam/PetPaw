@@ -34,9 +34,10 @@ const router = createBrowserRouter([
       },
       {
         path: '/services/:category',
-        element: <Services />,
+        element:<PrivateRoute> <Services /></PrivateRoute>,
         loader: ({ params }) =>
           axios.get(`http://localhost:5000/services?category=${params.category}`).then(res => res.data),
+        
       },
       {
         path: '/about',
