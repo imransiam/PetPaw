@@ -14,41 +14,65 @@ const Home = () => {
   return (
     <>
       <Helmet>
-        <title>GameHub - Home</title>
+        <title>PawMart - Your Pet's Best Friend</title>
       </Helmet>
 
-      <div className='flex flex-col gap-10 '>
+      {/* overflow-x-hidden here is the final shield against horizontal scrolls */}
+      <div className='flex flex-col gap-16 overflow-x-hidden'>
+        
         <BannerSlider />
 
-        <div className='space-y-15'>
-          <Marquee className='bg-amber-100 px-4 py-5 shadow-2xl shadow-amber-100 rounded-md' pauseOnHover={true} gradient={false} speed={58}>
-            <h2 className='text-black text-4xl font-semibold'>Welcome to PawMart - Your One-Stop Shop for All Your Pet Needs!</h2>
-          </Marquee>
-          <Marquee className='bg-pink-100 px-4 py-5 shadow-2xl shadow-amber-100 rounded-md' pauseOnHover={true} gradient={false} speed={58}>
-            <h2 className='text-black text-4xl font-semibold'>You can Adopt! Don't Shop. Give a Pet a Home</h2>
-          </Marquee>
-          <Marquee className='bg-green-100 px-4 py-5 shadow-2xl shadow-amber-100 rounded-md' pauseOnHover={true} gradient={false} speed={58}>
-            <h2 className='text-black text-4xl font-semibold'>Every Pet deserves a loving home</h2>
+        {/* Unified Theme-Matched Marquee */}
+        <div className='w-full'>
+          <Marquee 
+            className='bg-orange-600 py-6 shadow-xl text-white overflow-hidden' 
+            pauseOnHover={true} 
+            speed={60} 
+            gradient={false}
+          >
+            <div className='flex gap-20 text-3xl font-bold items-center uppercase tracking-wider'>
+              <span>🐾 Welcome to PawMart! 🐾</span>
+              <span>• Adopt! Don't Shop •</span>
+              <span>🏠 Give a Pet a Forever Home 🏠</span>
+              <span>• Quality Food for Happy Tails •</span>
+            </div>
           </Marquee>
         </div>
 
-        <section>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 place-items-center">
-            <CategoryCard title="Pets" description="Adopt lovely pets waiting for a new home." image="https://images.unsplash.com/photo-1583512603806-077998240c7a?referrer=grok.com" category="pets" />
-            <CategoryCard title="Food" description="Healthy & tasty food for your pet buddies." image="https://plus.unsplash.com/premium_photo-1726761692986-6bcde87fc2b8?w=1000&auto=format&fit=crop&q=60" category="food" />
+        {/* Categories Section - FIXED GRID */}
+        <section className='container mx-auto px-6'>
+          <div className='mb-10 text-center'>
+            <h2 className='text-5xl font-bold mb-4'>Our Categories</h2>
+            <div className='h-1 w-20 bg-orange-500 mx-auto rounded-full'></div>
+          </div>
+          
+          {/* Responsive Grid: 
+             1 col on mobile
+             2 cols on tablets (sm/md)
+             4 cols on desktops (lg)
+          */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            <CategoryCard title="Pets" description="Adopt lovely pets waiting for a new home." image="https://images.unsplash.com/photo-1583512603806-077998240c7a" category="pets" />
+            <CategoryCard title="Food" description="Healthy & tasty food for your pet buddies." image="https://plus.unsplash.com/premium_photo-1726761692986-6bcde87fc2b8" category="food" />
             <CategoryCard title="Accessories" description="Collars, toys, beds and more." image="https://www.shutterstock.com/image-photo/toy-dogs-cats-other-goods-260nw-2508680843.jpg" category="accessories" />
-            <CategoryCard title="Care Products" description="Keep them clean, happy & comfortable." image="https://www.shutterstock.com/image-photo/food-accessories-walk-play-body-260nw-2098053313.jpg" category="grooming" />
+            <CategoryCard title="Care" description="Keep them clean and comfortable." image="https://www.shutterstock.com/image-photo/food-accessories-walk-play-body-260nw-2098053313.jpg" category="grooming" />
           </div>
         </section>
 
-        <section className='max-w-11/12 mx-auto'>
-          <h2 className='text-5xl font-bold text-center mb-12'>Latest</h2>
-          <div className='flex-1 grid grid-cols-1 md:grid-cols-3 gap-6'>
+        {/* Latest Services Section */}
+        <section className='container mx-auto px-6'>
+          <h2 className='text-5xl font-bold text-center mb-12'>Latest Arrivals</h2>
+          <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8'>
             {previewServices.map(service => <ServiceCard key={service._id} service={service} />)}
           </div>
-          <Link to='/services' className='flex justify-center items-center mt-12'>
-            <button className='btn btn-neutral'>See All Services</button>
-          </Link>
+          
+          <div className='flex justify-center mt-16'>
+            <Link to='/services'>
+              <button className='btn bg-orange-700 hover:bg-orange-800 text-white px-12 py-3 rounded-full text-lg border-none'>
+                View All Services
+              </button>
+            </Link>
+          </div>
         </section>
 
         <Newsletter />

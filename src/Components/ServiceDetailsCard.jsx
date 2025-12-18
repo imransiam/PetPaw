@@ -2,6 +2,8 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router';
 import axios from 'axios';
 import { AuthContext } from '../Provider/AuthProvider';
+import { FaPaw, FaMapMarkerAlt, FaEnvelope, FaArrowLeft } from 'react-icons/fa';
+import Swal from 'sweetalert2'; // Recommended for a professional look
 
 const ServiceDetails = () => {
   const { id } = useParams();
@@ -9,7 +11,7 @@ const ServiceDetails = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   
-  const {user} = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
 
   useEffect(() => {
     const fetchService = async () => {
@@ -30,220 +32,152 @@ const ServiceDetails = () => {
   const handleOrder = (e) => {
     e.preventDefault();
     const form = e.target;
-    const buyerName = form.buyerName.value;
-    const productName = form.buyerName.value;
-    const price = parseInt(form.price.value);
-    const quantity = parseInt(form.quantity.value);
-    const address = form.address.value;
-    const note = form.note.value;
-    
-    const phone = form.phone.value;
-    const email = form.email.value;
     const formData = {
-      buyerName,
-      productName,
-      
-      price,
-      quantity,
-      address,
-      note,
-      phone,
-      OrderedAt: service?.CreatedAt,
-      date: new Date().toLocaleDateString(),
+      buyerName: user?.displayName,
+      productName: service?.name,
+      price: parseFloat(service?.price),
+      quantity: parseInt(form.quantity.value),
+      address: form.address.value,
+      note: form.note.value,
+      phone: form.phone.value,
+      OrderedAt: new Date().toISOString(),
       productId: service?._id,
-      email
-    }
-    axios.post('http://localhost:5000/orders',formData)
-      .then(res=>{
-        console.log(res);
+      email: user?.email
+    };
+
+    axios.post('http://localhost:5000/orders', formData)
+      .then(res => {
+        console.log(res.data);
+        Swal.fire({
+          title: 'Order Placed!',
+          text: 'Your request has been sent successfully.',
+          icon: 'success',
+          confirmButtonColor: '#d97706'
+        });
+        document.getElementById('my_modal_5').close();
         form.reset();
-        }
-      ).catch(err=>console.error(err));
-    console.log(formData);
+      })
+      .catch(err => console.error(err));
   };
 
-  if (loading) return <div className="text-center mt-10 text-xl">Loading...</div>;
-  if (error) return <div className="text-center mt-10 text-red-500">{error}</div>;
-  if (!service) return <div className="text-center mt-10 text-gray-500">Service not found</div>;
+  if (loading) return (
+    <div className="flex justify-center items-center min-h-screen">
+      <span className="loading loading-paw loading-lg text-orange-600"></span>
+    </div>
+  );
+
+  if (error) return <div className="text-center mt-10 text-red-500 font-bold">{error}</div>;
 
   return (
-<div className="max-w-3xl mx-auto bg-green-100/50 shadow-[0_0_40px_rgba(34,197,94,0.4)] rounded-xl mb-5 mt-5 pb-5 ">
-     <div className='flex-1 '> <img src={service.imageUrl} alt={service.name} className="w-full h-100 object-cover rounded-lg mb-4" /></div>
-     <div className='p-5'>
-       <h1 className="text-3xl font-bold mb-2">{service.name}</h1>
-      <p className="text-gray-700 mb-2">Category: {service.category}</p>
-      <p className="text-gray-700 mb-2">Price: {service.price}</p>
-      <p className="text-gray-700 mb-2">Location: {service.location}</p>
-      {service.email && <p className="text-gray-700 mb-2">Contact: {service.email}</p>}
-      {service.description && <p className="text-gray-700 mb-4">{service.description}</p>}
-      {service.downloadLink && (
-        <Link to={service.downloadLink}>
-          <button className="bg-red-500 text-white px-6 py-2 rounded-full hover:bg-red-600 transition">Download</button>
-        </Link>
-      )}
-      <div className="mt-6 flex justify-between">
-        <Link to="/services" className="bg-gray-800 text-white px-6 py-2 rounded-full hover:bg-gray-900 transition">Back to Services</Link>
-        {/* Open the modal using document.getElementById('ID').showModal() method */}
-<button className="btn bg-black text-white rounded-3xl" onClick={()=>document.getElementById('my_modal_5').showModal()}>Order</button>
-<dialog id="my_modal_5" className="modal modal-bottom sm:modal-middle">
-  <div className="modal-box">
-   <form onSubmit={handleOrder} className='text-black'>
-            <div className="space-y-6">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Buyer Name *
-              </label>
-              <input
-              defaultValue={user?.displayName}
-              readOnly
-              required
-              name='buyerName'
-                type="text"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition re"
-                placeholder="Buyer name"
-              />
+    <div className="container mx-auto px-4 py-10">
+      <div className="CardStyle max-w-5xl mx-auto overflow-hidden shadow-2xl border-none">
+        <div className="flex flex-col lg:flex-row">
+          
+          {/* Left: Product Image */}
+          <div className="lg:w-1/2 relative">
+            <img 
+              src={service.imageUrl} 
+              alt={service.name} 
+              className="w-full h-80 lg:h-full object-cover" 
+            />
+            <div className="absolute top-4 left-4 bg-orange-600 text-white px-4 py-1 rounded-full text-sm font-bold shadow-lg">
+              {service.category}
             </div>
-            {/* Product/Pet Name */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Product/Pet Name *
-              </label>
-              <input
-              defaultValue={service?.name}
-              readOnly
-              required
-              name='productName'
-                type="text"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition re"
-                placeholder="Enter product or pet name"
-              />
-            </div>
+          </div>
 
-           
-
-            {/* Price */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Price <span className="text-gray-500 text-xs">(0 if pet is selected)</span>
-              </label>
-              <div className="relative">
-                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500">$</span>
-                <input
-                defaultValue={service?.price}
-                readOnly
-                  required
-                name='price'
-                  type="number"
-                  className="w-full pl-8 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition disabled:bg-gray-50 disabled:text-gray-600 disabled:cursor-not-allowed"
-                  placeholder="0.00"
-                  min="0"
-                  step="0.01"
-                 
-                />
-              </div>
-            </div>
-
-             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Quantity
-              </label>
-              <div className="relative">
-                
-                <input
-                  required
-                name='quantity'
-                  type="number"
-                  className="w-full pl-8 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition disabled:bg-gray-50 disabled:text-gray-600 disabled:cursor-not-allowed"
-                  placeholder="0.00"
-                  min="0"
-                  step="0.01"
-                  
-                />
-              </div>
-            </div>
-
-            {/* Location */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Address *
-              </label>
-              <input
-                required
-                name='address'
-                type="text"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition"
-                placeholder="Enter Address"
-              />
-            </div>
-
+          {/* Right: Details */}
+          <div className="lg:w-1/2 p-8 flex flex-col justify-center">
+            <Link to="/services" className="flex items-center gap-2 text-orange-600 font-bold mb-4 hover:underline">
+              <FaArrowLeft /> Back to Shop
+            </Link>
             
-
-           
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Phone *
-              </label>
-              <input
-                required
-                name='phone'
-                type="text"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition"
-                placeholder="Enter phone number"
-              />
-            </div>
-           
-
-            {/* Email (Readonly) */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Email
-              </label>
-              <input
-              value={user?.email}
-                name='email'
-                type="email"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-50 text-gray-600 cursor-not-allowed"
-                placeholder="user@example.com"
-                readOnly
-              />
+            <h1 className="text-4xl font-bold mb-4">{service.name}</h1>
+            
+            <div className="space-y-3 mb-6">
+              <p className="text-3xl font-bold text-orange-600 dark:text-orange-400">
+                ${service.price}
+              </p>
+              <div className="flex items-center gap-3 opacity-80">
+                <FaMapMarkerAlt className="text-orange-500" />
+                <span>{service.location}</span>
+              </div>
+              <div className="flex items-center gap-3 opacity-80">
+                <FaEnvelope className="text-orange-500" />
+                <span>{service.email || 'Contact support'}</span>
+              </div>
             </div>
 
-            {/* Description */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Additional Note *
-              </label>
-              <textarea
-                required
-                name='note'
-                rows="4"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition resize-none"
-                placeholder="Enter a note"
-              ></textarea>
-            </div>
-
-            {/* Submit Button */}
-            <div className="pt-4">
-              <button
-                
-                type="submit"
-                className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-6 rounded-lg transition duration-200 transform hover:scale-105 shadow-lg"
+            <div className="border-t border-stone-200 dark:border-stone-700 pt-6">
+              <h3 className="font-bold mb-2">Description</h3>
+              <p className="opacity-80 leading-relaxed mb-8">
+                {service.description || "No description provided for this lovely service."}
+              </p>
+              
+              <button 
+                className="btn bg-orange-600 hover:bg-orange-700 text-white w-full rounded-2xl border-none text-lg flex items-center gap-2"
+                onClick={() => document.getElementById('my_modal_5').showModal()}
               >
-                Order
+                Order Now <FaPaw />
               </button>
             </div>
           </div>
-          </form>
-    <div className="modal-action">
-      <form method="dialog">
-        {/* if there is a button in form, it will close the modal */}
-        <button className="btn">Close</button>
-      </form>
-    </div>
-  </div>
-</dialog>
+        </div>
       </div>
-     </div>
+
+      {/* --- ORDER MODAL --- */}
+      <dialog id="my_modal_5" className="modal modal-bottom sm:modal-middle">
+        <div className="modal-box bg-white dark:bg-stone-900 rounded-3xl border-2 border-orange-500/20">
+          <h3 className="font-bold text-2xl mb-6 text-center">Complete Your Order</h3>
+          
+          <form onSubmit={handleOrder} className="space-y-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="form-control">
+                <label className="label font-semibold">Your Name</label>
+                <input value={user?.displayName} readOnly className="input input-bordered bg-stone-100 dark:bg-stone-800" />
+              </div>
+              <div className="form-control">
+                <label className="label font-semibold">Service</label>
+                <input value={service?.name} readOnly className="input input-bordered bg-stone-100 dark:bg-stone-800" />
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="form-control">
+                <label className="label font-semibold">Price ($)</label>
+                <input value={service?.price} readOnly className="input input-bordered bg-stone-100 dark:bg-stone-800" />
+              </div>
+              <div className="form-control">
+                <label className="label font-semibold">Quantity</label>
+                <input name="quantity" type="number" min="1" defaultValue="1" required className="input input-bordered focus:border-orange-500" />
+              </div>
+            </div>
+
+            <div className="form-control">
+              <label className="label font-semibold">Phone Number</label>
+              <input name="phone" type="tel" placeholder="Enter phone" required className="input input-bordered focus:border-orange-500" />
+            </div>
+
+            <div className="form-control">
+              <label className="label font-semibold">Delivery Address</label>
+              <input name="address" type="text" placeholder="House/Street/City" required className="input input-bordered focus:border-orange-500" />
+            </div>
+
+            <div className="form-control">
+              <label className="label font-semibold">Additional Note</label>
+              <textarea name="note" rows="2" className="textarea textarea-bordered focus:border-orange-500" placeholder="Any special requests?"></textarea>
+            </div>
+
+            <div className="modal-action flex flex-col gap-3">
+              <button type="submit" className="btn bg-orange-600 hover:bg-orange-700 text-white w-full border-none rounded-xl">
+                Confirm Order
+              </button>
+              <button type="button" className="btn btn-ghost w-full" onClick={() => document.getElementById('my_modal_5').close()}>
+                Cancel
+              </button>
+            </div>
+          </form>
+        </div>
+      </dialog>
     </div>
   );
 };

@@ -1,52 +1,98 @@
 @import url('https://fonts.googleapis.com/css2?family=Cherry+Cream+Soda&display=swap');
 @import "tailwindcss";
-@plugin "daisyui";
 
+@plugin "daisyui" {
+  themes: light --default, dark;
+}
+
+* {
+  @apply transition-colors duration-300;
+}
 
 body {
-  
- @apply bg-amber-50 text-black;
   font-family: "Cherry Cream Soda", sans-serif;
-}
-.navbarFont {
-  font-family: "Cherry Cream Soda", sans-serif;
- background-color: #0D6EFD;
+  min-height: 100vh;
+  line-height: 1.6;
 }
 
-.footerFont {
-  font-family: "Cherry Cream Soda", sans-serif;
- background-color: #0D6EFD;
+[data-theme="light"] body {
+  background-color: #fefaf0;
+  color: #433422;
 }
 
-.Orbitron {
-  font-family: "Cherry Cream Soda", sans-serif;
+[data-theme="light"] .CardStyle {
+  background-color: #ffffff;
+  color: #433422;
+  border: 1px solid rgba(217, 119, 6, 0.1);
+  box-shadow: 0 10px 25px -5px rgba(139, 92, 26, 0.1), 0 8px 10px -6px rgba(139, 92, 26, 0.1);
 }
 
-a.active {
-  
-  background-color: #bf6eb8;
-  border-radius: 5px;
-  padding: 5px;
-  box-shadow: #8eb9dc 0px 0px 30px;
-  font-weight: bold;
-  border-color: black;
-  color: purple;
-  transition: all 0.3s ease-in-out;
-  
+[data-theme="dark"] body {
+  background-color: #0c0a09;
+  color: #fef3c7;
 }
 
-.CardStyle{
-  box-shadow: #8eb9dc 0px 0px 18px;
+[data-theme="dark"] .CardStyle {
+  background-color: #1c1917;
+  color: #fef3c7;
+  border: 1px solid rgba(254, 243, 199, 0.05);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
 }
 
-
-.btn {
-  @apply transition-transform duration-200 ease-in-out hover:scale-105 hover:shadow-lg hover:shadow-blue-500/50;
+.CardStyle:hover {
+  @apply shadow-2xl;
+  transform: translateY(-2px);
 }
 
-.input {
-  background-color: black;
+.navbarFont, .footerFont {
+  @apply shadow-md;
 }
 
+.btn-primary {
+  @apply bg-orange-600 border-none text-white hover:bg-orange-700;
+}
 
+input, textarea, select, .input {
+  color: #433422 !important;
+  @apply bg-stone-100 border-stone-200 focus:ring-2 focus:ring-orange-500 transition-all outline-none;
+}
 
+[data-theme="dark"] input, 
+[data-theme="dark"] textarea, 
+[data-theme="dark"] select, 
+[data-theme="dark"] .input {
+  color: #ffffff !important;
+  @apply bg-stone-800 border-stone-700;
+}
+
+.input::placeholder, .textarea::placeholder {
+  color: inherit;
+  @apply opacity-40;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus {
+  -webkit-text-fill-color: inherit !important;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+.CardStyle {
+  @apply rounded-[2rem] transition-all duration-300;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-orange-600/30 rounded-full hover:bg-orange-600/50;
+}
+
+.active-link {
+  @apply text-orange-200 font-bold border-b-2 border-orange-200 pb-1;
+}
