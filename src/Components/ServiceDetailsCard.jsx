@@ -17,7 +17,7 @@ const ServiceDetails = () => {
     const fetchService = async () => {
       try {
         setLoading(true);
-        const response = await axios.get(`http://localhost:5000/services/${id}`);
+        const response = await axios.get(`https://assignment10-backend-three.vercel.app/services/${id}`);
         setService(response.data);
         setLoading(false);
       } catch (err) {
@@ -45,7 +45,7 @@ const ServiceDetails = () => {
       email: user?.email
     };
 
-    axios.post('http://localhost:5000/orders', formData)
+    axios.post('https://assignment10-backend-three.vercel.app/orders', formData)
       .then(res => {
         console.log(res.data);
         Swal.fire({

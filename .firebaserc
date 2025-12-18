@@ -1,5 +1,15 @@
 {
   "projects": {
     "default": "gamehub-24c71"
-  }
+  },
+  "targets": {
+    "gamehub-24c71": {
+      "hosting": {
+        "pawmart-app": [
+          "pawmart-imran"
+        ]
+      }
+    }
+  },
+  "etags": {}
 }

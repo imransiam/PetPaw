@@ -1,9 +1,9 @@
 import axios from 'axios';
 import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../Provider/AuthProvider';
-import { FaShoppingBag, FaCalendarAlt, FaPhoneAlt, FaMapMarkerAlt, FaFileDownload } from 'react-icons/fa';
+import { FaShoppingBag, FaCalendarAlt, FaFileDownload } from 'react-icons/fa';
 import { jsPDF } from 'jspdf'; 
-import autoTable from 'jspdf-autotable'; // 1. Changed import style
+import autoTable from 'jspdf-autotable';
 
 const MyOrders = () => {
   const [myOrders, setMyOrders] = useState([]);
@@ -11,125 +11,102 @@ const MyOrders = () => {
 
   useEffect(() => {
     if (user?.email) {
-      axios.get(`http://localhost:5000/orders?email=${user?.email}`)
+      axios.get(`https://assignment10-backend-three.vercel.app/orders?email=${user?.email}`)
         .then(res => setMyOrders(res.data))
         .catch(err => console.error("Error fetching orders:", err));
     }
   }, [user?.email]);
 
   const generatePDF = (order) => {
-    console.log("Generating PDF for:", order);
-    
     try {
       const doc = new jsPDF();
-
-      // Header Branding
       doc.setFontSize(22);
       doc.setTextColor(234, 88, 12); 
       doc.text("PawMart Order Invoice", 14, 20);
-      
       doc.setFontSize(10);
-      doc.setTextColor(100);
-      doc.text(`Transaction ID: ${order._id}`, 14, 28);
-      doc.text(`Date: ${new Date().toLocaleDateString()}`, 14, 33);
-
-      // Customer Info
-      doc.setFontSize(12);
-      doc.setTextColor(0);
-      doc.text("Customer Details", 14, 45);
-      doc.line(14, 47, 60, 47); 
+      doc.text(`Transaction: ${order._id}`, 14, 28);
       
-      doc.setFontSize(10);
-      doc.text(`Name: ${user?.displayName || 'Valued Customer'}`, 14, 53);
-      doc.text(`Email: ${user?.email}`, 14, 58);
-      doc.text(`Phone: ${order.phone || 'N/A'}`, 14, 63);
-      doc.text(`Address: ${order.address || 'N/A'}`, 14, 68);
-
-      // 2. Using the standalone autoTable function (Fixes the TypeError)
       autoTable(doc, {
-        startY: 75,
-        head: [['Product Name', 'Quantity', 'Price (Unit)', 'Subtotal']],
-        body: [
-          [
-            order.productName, 
-            order.quantity, 
-            `${order.price} BDT`, 
-            `${(order.quantity * order.price)} BDT`
-          ]
-        ],
-        headStyles: { fillColor: [234, 88, 12], textColor: [255, 255, 255] },
-        alternateRowStyles: { fillColor: [255, 247, 237] },
+        startY: 40,
+        head: [['Product', 'Qty', 'Price', 'Total']],
+        body: [[order.productName, order.quantity, `${order.price} BDT`, `${(order.quantity * order.price)} BDT`]],
+        headStyles: { fillColor: [234, 88, 12] },
       });
-
-      // 3. Getting the final position from autoTable
-      const finalY = doc.lastAutoTable.finalY + 10;
-      doc.setFontSize(14);
-      doc.setFont("helvetica", "bold");
-      doc.text(`Total Amount Paid: ${(order.quantity * order.price)} BDT`, 14, finalY);
-
-      doc.setFontSize(10);
-      doc.setFont("helvetica", "normal");
-      doc.setTextColor(150);
-      doc.text("Thank you for choosing PawMart. This is a computer-generated invoice.", 14, finalY + 15);
-
-      doc.save(`PawMart_Invoice_${order._id.slice(-5)}.pdf`);
-
+      doc.save(`Invoice_${order._id.slice(-5)}.pdf`);
     } catch (error) {
-      console.error("PDF Generation failed:", error);
-      alert("Could not generate PDF. Check if jspdf-autotable is installed.");
+      console.error(error);
     }
   };
 
   return (
     <div className="container mx-auto px-4 py-12">
+      {/* Header - Using inherit to force your CSS body color */}
       <div className="mb-10">
-        <h1 className="text-4xl font-bold flex items-center gap-3">
-          <FaShoppingBag className="text-orange-600" /> My Orders
+        <h1 className="text-4xl font-bold flex items-center gap-3 text-inherit">
+          <FaShoppingBag className="text-orange-600" /> 
+          <span>My Orders</span>
         </h1>
-        <p className="opacity-70 mt-2 text-lg">Download your official PawMart receipts</p>
+        <p className="mt-2 text-lg opacity-80 text-inherit">
+          Manage your purchases and receipts
+        </p>
       </div>
 
-      <div className="CardStyle shadow-xl overflow-hidden border-none rounded-2xl">
+      {/* Table Container - Using your CardStyle */}
+      <div className="CardStyle overflow-hidden">
         <div className="overflow-x-auto">
-          <table className="table w-full">
+          {/* Removed DaisyUI "table" class to stop it from forcing white text */}
+          <table className="w-full text-left">
             <thead className="bg-orange-600 text-white">
-              <tr className="text-sm uppercase tracking-wider">
-                <th className="py-4">#</th>
-                <th>Item Info</th>
-                <th>Price</th>
-                <th>Qty</th>
-                <th>Delivery Details</th>
-                <th>Invoice</th>
+              <tr>
+                <th className="p-4">#</th>
+                <th className="p-4">Item Name</th>
+                <th className="p-4">Price</th>
+                <th className="p-4">Qty</th>
+                <th className="p-4">Shipping Info</th>
+                <th className="p-4 text-center">Invoice</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody className="text-inherit">
               {myOrders.map((order, index) => (
-                <tr key={order._id} className="hover:bg-orange-50/50 dark:hover:bg-stone-800/50 transition-colors border-b border-stone-100 dark:border-stone-800 text-stone-900 dark:text-white">
-                  <td className="font-bold opacity-50">{index + 1}</td>
-                  <td>
+                <tr 
+                  key={order._id} 
+                  className="border-b border-orange-100 dark:border-stone-800 hover:bg-orange-50/30 dark:hover:bg-stone-800/30 transition-all"
+                >
+                  <td className="p-4 font-bold opacity-50">{index + 1}</td>
+                  
+                  <td className="p-4">
                     <div className="font-bold text-lg">{order.productName}</div>
-                    <div className="flex items-center gap-2 text-xs opacity-60 mt-1">
-                      <FaCalendarAlt className="text-orange-500" /> {order.date}
+                    <div className="flex items-center gap-2 text-xs opacity-60">
+                      <FaCalendarAlt className="text-orange-500" /> {order.date || 'Recent'}
                     </div>
                   </td>
-                  <td>{order.price} BDT</td>
-                  <td>x{order.quantity}</td>
-                  <td>
-                    <div className="text-sm">{order.address}</div>
+
+                  <td className="p-4 font-semibold">{order.price} BDT</td>
+                  <td className="p-4">x{order.quantity}</td>
+                  
+                  <td className="p-4">
+                    <div className="text-sm font-medium">{order.address}</div>
                     <div className="text-xs opacity-70">{order.phone}</div>
                   </td>
-                  <td>
+
+                  <td className="p-4 text-center">
                     <button 
                       onClick={() => generatePDF(order)}
-                      className="btn btn-sm btn-circle btn-ghost text-orange-600 hover:bg-orange-600 hover:text-white"
+                      className="p-2 rounded-full text-orange-600 hover:bg-orange-600 hover:text-white transition-all"
                     >
-                      <FaFileDownload className="text-xl" />
+                      <FaFileDownload size={20} />
                     </button>
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
+
+          {myOrders.length === 0 && (
+            <div className="text-center py-20 italic opacity-50">
+              No orders found in your history.
+            </div>
+          )}
         </div>
       </div>
     </div>

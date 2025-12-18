@@ -24,7 +24,7 @@ const AddListing = () => {
       CreatedAt: new Date().toISOString()
     };
 
-    axios.post('http://localhost:5000/services', formData)
+    axios.post('https://assignment10-backend-three.vercel.app/services', formData)
       .then(res => {
         if (res.data.acknowledged) {
           Swal.fire({

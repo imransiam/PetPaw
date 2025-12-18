@@ -16,6 +16,7 @@ import MyListings from "../Pages/MyListings";
 import MyOrders from "../Pages/MyOrders";
 import axios from "axios";
 import UpdateMyListing from "../Pages/UpdateMyListing";
+import Loading from "../Pages/Loading";
 
 const router = createBrowserRouter([
   {
@@ -25,18 +26,20 @@ const router = createBrowserRouter([
       {
         path: '/',
         element: <Home />,
-        loader: () => axios.get('http://localhost:5000/services').then(res => res.data).catch(err => console.error(err)),
+        loader: () => axios.get('https://assignment10-backend-three.vercel.app/services').then(res => res.data).catch(err => console.error(err)),
+        
       },
       {
         path: '/services',
         element: <Services />,
-        loader: () => axios.get('http://localhost:5000/services').then(res => res.data).catch(err => console.error(err)),
+        loader: () => axios.get('https://assignment10-backend-three.vercel.app/services').then(res => res.data).catch(err => console.error(err)),
+        
       },
       {
         path: '/services/:category',
         element:<PrivateRoute> <Services /></PrivateRoute>,
         loader: ({ params }) =>
-          axios.get(`http://localhost:5000/services?category=${params.category}`).then(res => res.data),
+          axios.get(`https://assignment10-backend-three.vercel.app/services?category=${params.category}`).then(res => res.data),
         
       },
       {
@@ -62,7 +65,8 @@ const router = createBrowserRouter([
       {
     path: 'serviceDetails/:id',
     element: <PrivateRoute><ServiceDetails /></PrivateRoute>,
-    loader: () => axios.get('http://localhost:5000/services').then(res => res.data).catch(err => console.error(err)),
+    loader: () => axios.get('https://assignment10-backend-three.vercel.app/services').then(res => res.data).catch(err => console.error(err)),
+    
   },
     ]
   },

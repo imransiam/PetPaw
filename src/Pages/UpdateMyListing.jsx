@@ -14,7 +14,7 @@ const UpdateMyListing = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get(`http://localhost:5000/services/${id}`)
+    axios.get(`https://assignment10-backend-three.vercel.app/services/${id}`)
       .then(res => {
         setService(res.data);
         setCategory(res.data.category);
@@ -37,7 +37,7 @@ const UpdateMyListing = () => {
       CreatedAt: service?.CreatedAt,
     };
 
-    axios.put(`http://localhost:5000/updateListing/${id}`, formData)
+    axios.put(`https://assignment10-backend-three.vercel.app/updateListing/${id}`, formData)
       .then(res => {
         console.log(res.data);
         Swal.fire({
