@@ -55,7 +55,7 @@ const Home = () => {
             <CategoryCard title="Pets" description="Adopt lovely pets waiting for a new home." image="https://images.unsplash.com/photo-1583512603806-077998240c7a" category="pets" />
             <CategoryCard title="Food" description="Healthy & tasty food for your pet buddies." image="https://plus.unsplash.com/premium_photo-1726761692986-6bcde87fc2b8" category="food" />
             <CategoryCard title="Accessories" description="Collars, toys, beds and more." image="https://www.shutterstock.com/image-photo/toy-dogs-cats-other-goods-260nw-2508680843.jpg" category="accessories" />
-            <CategoryCard title="Care" description="Keep them clean and comfortable." image="https://www.shutterstock.com/image-photo/food-accessories-walk-play-body-260nw-2098053313.jpg" category="grooming" />
+            <CategoryCard title="Care" description="Keep them clean and comfortable." image="https://www.shutterstock.com/image-photo/food-accessories-walk-play-body-260nw-2098053313.jpg" category="care-products" />
           </div>
         </section>
 

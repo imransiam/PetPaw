@@ -17,7 +17,7 @@ const Navbar = () => {
   const navLinks = (
     <>
       <NavLink to='/' className={({ isActive }) => isActive ? 'text-orange-300 font-bold border-b-2 border-orange-300' : 'hover:text-orange-200 transition'}>Home</NavLink>
-      <NavLink to='/services' className={({ isActive }) => isActive ? 'text-orange-300 font-bold border-b-2 border-orange-300' : 'hover:text-orange-200 transition'}>Services</NavLink>
+      <NavLink to='/services' className={({ isActive }) => isActive ? 'text-orange-300 font-bold border-b-2 border-orange-300' : 'hover:text-orange-200 transition'}>Pets & Supplies</NavLink>
       {user && (
         <>
           <NavLink to='/AddListing' className={({ isActive }) => isActive ? 'text-orange-300 font-bold border-b-2 border-orange-300' : 'hover:text-orange-200 transition'}>Add Listing</NavLink>

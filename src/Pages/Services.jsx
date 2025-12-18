@@ -31,11 +31,11 @@ const Services = () => {
   return (
     <>
       <Helmet>
-        <title>GameHub - Services</title>
+        <title>PawMart - All Services</title>
       </Helmet>
 
       <div>
-        <h2 className='text-4xl font-bold text-center'>All Services</h2>
+        <h2 className='text-4xl font-bold text-center'>All Pets And Supplies</h2>
         
         <div className='flex justify-center mt-6 mb-8'>
           <select 
