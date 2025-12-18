@@ -52,7 +52,7 @@ const Services = () => {
         </div>
 
         {filteredServices.length > 0 ? (
-          <div className='flex-1 grid grid-cols-1 md:grid-cols-3 gap-6'>
+          <div className='flex-1 max-w-11/12 mx-auto grid grid-cols-1 md:grid-cols-3 gap-6'>
             {filteredServices.map(service => <ServiceCard key={service._id} service={service} />)}
           </div>
         ) : (

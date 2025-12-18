@@ -59,6 +59,11 @@ const router = createBrowserRouter([
         path: '/Orders', 
         element: <MyOrders />,
       },
+      {
+    path: 'serviceDetails/:id',
+    element: <PrivateRoute><ServiceDetails /></PrivateRoute>,
+    loader: () => axios.get('http://localhost:5000/services').then(res => res.data).catch(err => console.error(err)),
+  },
     ]
   },
   {
@@ -69,11 +74,7 @@ const router = createBrowserRouter([
       { path: '/auth/register', element: <Registration /> }
     ]
   },
-  {
-    path: 'serviceDetails/:id',
-    element: <PrivateRoute><ServiceDetails /></PrivateRoute>,
-    loader: () => axios.get('http://localhost:5000/services').then(res => res.data).catch(err => console.error(err)),
-  },
+  
   { path: '/user', element: <UserDetails /> },
   { path: '/updateProfile', element: <UpdataUserDetails /> },
   { path: '*', element: <Page404 /> }

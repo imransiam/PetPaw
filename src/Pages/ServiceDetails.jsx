@@ -14,12 +14,12 @@ const GameDetails = () => {
   // console.log(data, id, game);
   return (
 <>
- <div>
+ <div className='h-full'>
       <Helmet>
         <title>GameHub - GameDetails</title>
       </Helmet>
     </div>
-    <div className='w-11/12 mx-auto justify-center items-center'>
+    <div >
       <ServiceDetailsCard service={service}></ServiceDetailsCard>
       
     </div>

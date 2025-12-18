@@ -41,9 +41,9 @@ const Home = () => {
           </div>
         </section>
 
-        <section>
-          <h2 className='text-4xl font-bold text-center mb-12'>Top Rated Services</h2>
-          <div className='flex-1 grid grid-cols-1 md:grid-cols-2 gap-6'>
+        <section className='max-w-11/12 mx-auto'>
+          <h2 className='text-5xl font-bold text-center mb-12'>Latest</h2>
+          <div className='flex-1 grid grid-cols-1 md:grid-cols-3 gap-6'>
             {previewServices.map(service => <ServiceCard key={service._id} service={service} />)}
           </div>
           <Link to='/services' className='flex justify-center items-center mt-12'>
