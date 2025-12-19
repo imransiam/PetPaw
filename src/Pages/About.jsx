@@ -12,7 +12,7 @@ const About = () => {
 
       <div className="min-h-screen py-12 px-6 flex flex-col gap-16">
         
-        {/* Hero Section */}
+        
         <section className="text-center space-y-4">
           <h1 className="text-5xl md:text-7xl font-black text-orange-600 tracking-tighter">
             About PawMart
@@ -23,7 +23,7 @@ const About = () => {
           </p>
         </section>
 
-        {/* Feature Cards */}
+        
         <section className="grid grid-cols-1 md:grid-cols-3 gap-8 container mx-auto">
           <Link to='/services' className="group">
             <div className="CardStyle p-10 h-full flex flex-col items-center text-center group-hover:-translate-y-3 shadow-xl">
@@ -62,7 +62,7 @@ const About = () => {
           </Link>
         </section>
 
-        {/* Mission Statement */}
+        
         <section className="container mx-auto">
           <div className="CardStyle p-8 md:p-16 text-center space-y-6 border-none bg-orange-600 text-white shadow-2xl">
             <FaPaw className="text-6xl mx-auto opacity-20 rotate-12" />
@@ -75,7 +75,7 @@ const About = () => {
           </div>
         </section>
 
-        {/* Call to Action */}
+       
         <section className="text-center pb-12">
           <p className="mb-6 text-xl opacity-80">Ready to meet your new best friend?</p>
           <Link to='/services'>

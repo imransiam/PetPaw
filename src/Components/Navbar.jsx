@@ -33,7 +33,7 @@ const Navbar = () => {
     <nav className="bg-orange-700 text-white shadow-xl sticky top-0 z-50 py-3 md:py-4 px-4 md:px-8">
       <div className="container mx-auto flex items-center justify-between">
         
-        {/* --- NEW LOGO SECTION --- */}
+        
         <Link to="/" className="flex items-center gap-2 group">
           <div className="bg-white p-2 rounded-xl group-hover:scale-110 group-hover:rotate-12 transition-all duration-300 shadow-lg">
             <FaPaw className="text-orange-700 text-2xl md:text-3xl" />
@@ -43,7 +43,7 @@ const Navbar = () => {
           </span>
         </Link>
 
-        {/* Center: Desktop Links */}
+       
         <div className="hidden lg:flex items-center gap-8 text-sm font-semibold uppercase tracking-widest">
           {navLinks}
         </div>
@@ -84,7 +84,7 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Mobile Menu Overlay */}
+      
       <div className={`lg:hidden absolute top-full left-0 w-full bg-orange-800 transition-all duration-300 overflow-hidden ${menuOpen ? 'max-h-screen py-8 opacity-100 shadow-2xl' : 'max-h-0 py-0 opacity-0'}`}>
         <div className="flex flex-col items-center gap-6 font-bold uppercase tracking-widest">
           {navLinks}

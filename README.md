@@ -1,16 +1,64 @@
-# React + Vite
+# PawMart
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is the frontend of PawMart, a pet marketplace web application.  
+The app is built with React and focuses on showing pet-related products and services through a simple and responsive UI.
 
-Currently, two official plugins are available:
+Live site:  
+https://pawmart-imran.web.app/
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## About the project
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+PawMart was built as a full-stack practice project.  
+The frontend consumes data from a custom backend API and handles routing, UI rendering, and user interaction.
 
-## Expanding the ESLint configuration
+The goal of this project was to get comfortable with:
+- React component structure
+- Working with APIs
+- Authentication flow
+- Deploying a real frontend
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## Main features
+
+- Responsive layout
+- Client-side routing
+- Data loaded from backend API
+- Firebase authentication
+- Clean component structure
+
+---
+
+## Tech used
+
+- React
+- Vite
+- JavaScript
+- CSS
+- Firebase Auth
+- Firebase Hosting
+
+---
+
+## Repo
+
+Frontend code:  
+https://github.com/imransiam/PetPaw
+
+---
+
+## Run locally
+
+```bash
+git clone https://github.com/imransiam/PetPaw.git
+cd PetPaw
+npm install
+npm run dev
+Firebase config is required for auth-related features.
+
+Deployment
+The frontend is deployed using Firebase Hosting.
+
+

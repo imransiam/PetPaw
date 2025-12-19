@@ -16,7 +16,7 @@ const GameDetails = () => {
 <>
  <div className='h-full'>
       <Helmet>
-        <title>GameHub - GameDetails</title>
+        <title>PawMart - Details</title>
       </Helmet>
     </div>
     <div >

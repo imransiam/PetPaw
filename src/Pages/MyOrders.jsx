@@ -40,7 +40,7 @@ const MyOrders = () => {
 
   return (
     <div className="container mx-auto px-4 py-12">
-      {/* Header - Using inherit to force your CSS body color */}
+      
       <div className="mb-10">
         <h1 className="text-4xl font-bold flex items-center gap-3 text-inherit">
           <FaShoppingBag className="text-orange-600" /> 
@@ -51,10 +51,10 @@ const MyOrders = () => {
         </p>
       </div>
 
-      {/* Table Container - Using your CardStyle */}
+      
       <div className="CardStyle overflow-hidden">
         <div className="overflow-x-auto">
-          {/* Removed DaisyUI "table" class to stop it from forcing white text */}
+         
           <table className="w-full text-left">
             <thead className="bg-orange-600 text-white">
               <tr>

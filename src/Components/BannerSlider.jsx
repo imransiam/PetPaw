@@ -36,13 +36,13 @@ const BannerSlider = () => {
     <div className="carousel w-full h-[400px] md:h-[550px] shadow-2xl">
       {slides.map((slide) => (
         <div key={slide.id} id={slide.id} className="carousel-item relative w-full h-full group">
-          {/* Images Container */}
+          
           <div className="flex w-full h-full overflow-hidden">
             <img src={slide.img1} className="w-1/2 h-full object-cover brightness-75" alt="Pet" />
             <img src={slide.img2} className="w-1/2 h-full object-cover brightness-75" alt="Pet" />
           </div>
 
-          {/* Text Overlay - This makes it look like a real shop */}
+          
           <div className="absolute inset-0 bg-black/30 flex flex-col items-center justify-center text-center p-4">
             <h1 className="text-white text-4xl md:text-6xl font-bold drop-shadow-lg mb-4">
               {slide.title}
@@ -55,7 +55,7 @@ const BannerSlider = () => {
             </button></Link>
           </div>
 
-          {/* Navigation Arrows */}
+         
           <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between opacity-0 group-hover:opacity-100 transition-opacity duration-300">
             <a href={slide.prev} className="btn btn-circle bg-white/20 border-none hover:bg-white/40 text-white">❮</a>
             <a href={slide.next} className="btn btn-circle bg-white/20 border-none hover:bg-white/40 text-white">❯</a>

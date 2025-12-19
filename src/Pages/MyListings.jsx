@@ -48,7 +48,7 @@ const MyListings = () => {
 
   return (
     <div className="container mx-auto px-4 py-12">
-      {/* Page Header */}
+      
       <div className="flex flex-col md:flex-row justify-between items-center mb-10 gap-4">
         <div>
           <h1 className="text-4xl font-bold flex items-center gap-3">
@@ -63,11 +63,11 @@ const MyListings = () => {
         </Link>
       </div>
 
-      {/* Table Container with CardStyle */}
+      
       <div className="CardStyle shadow-xl overflow-hidden border-none rounded-2xl">
         <div className="overflow-x-auto">
           <table className="table w-full">
-            {/* Table Head */}
+            
             <thead className="bg-orange-600/10 text-orange-900 dark:text-orange-100">
               <tr className="border-b border-orange-200 dark:border-stone-700">
                 <th className="py-5">Item Details</th>
