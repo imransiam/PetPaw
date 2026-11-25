@@ -24,7 +24,7 @@ const AddListing = () => {
       CreatedAt: new Date().toISOString()
     };
 
-    axios.post('https://assignment10-backend-three.vercel.app/services', formData)
+    axios.post(`${import.meta.env.VITE_API_URL}/services`, formData)
       .then(res => {
         if (res.data.acknowledged) {
           Swal.fire({

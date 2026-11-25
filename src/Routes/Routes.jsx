@@ -26,20 +26,20 @@ const router = createBrowserRouter([
       {
         path: '/',
         element: <Home />,
-        loader: () => axios.get('https://assignment10-backend-three.vercel.app/services').then(res => res.data).catch(err => console.error(err)),
+        loader: () => axios.get(`${import.meta.env.VITE_API_URL}/services`).then(res => res.data).catch(err => console.error(err)),
         
       },
       {
         path: '/services',
         element: <Services />,
-        loader: () => axios.get('https://assignment10-backend-three.vercel.app/services').then(res => res.data).catch(err => console.error(err)),
+        loader: () => axios.get(`${import.meta.env.VITE_API_URL}/services`).then(res => res.data).catch(err => console.error(err)),
         
       },
       {
         path: '/services/:category',
         element:<PrivateRoute> <Services /></PrivateRoute>,
-        loader: ({ params }) =>
-          axios.get(`https://assignment10-backend-three.vercel.app/services?category=${params.category}`).then(res => res.data),
+       loader: ({ params }) =>
+  axios.get(`${import.meta.env.VITE_API_URL}/services?category=${params.category}`).then(res => res.data),
         
       },
       {
@@ -65,8 +65,7 @@ const router = createBrowserRouter([
       {
     path: 'serviceDetails/:id',
     element: <PrivateRoute><ServiceDetails /></PrivateRoute>,
-    loader: () => axios.get('https://assignment10-backend-three.vercel.app/services').then(res => res.data).catch(err => console.error(err)),
-    
+    loader: () => axios.get(`${import.meta.env.VITE_API_URL}/services`).then(res => res.data).catch(err => console.error(err)),
   },
     ]
   },

@@ -11,7 +11,7 @@ const MyOrders = () => {
 
   useEffect(() => {
     if (user?.email) {
-      axios.get(`https://assignment10-backend-three.vercel.app/orders?email=${user?.email}`)
+axios.get(`${import.meta.env.VITE_API_URL}/orders?email=${user?.email}`)
         .then(res => setMyOrders(res.data))
         .catch(err => console.error("Error fetching orders:", err));
     }

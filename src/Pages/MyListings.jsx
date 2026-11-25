@@ -11,7 +11,7 @@ const MyListings = () => {
 
   useEffect(() => {
     if (user?.email) {
-      axios.get(`https://assignment10-backend-three.vercel.app/myservices?email=${user?.email}`)
+      axios.get(`${import.meta.env.VITE_API_URL}/myservices?email=${user?.email}`)
         .then(res => setMyServices(res.data))
         .catch(err => console.error(err));
     }
@@ -28,7 +28,7 @@ const MyListings = () => {
       confirmButtonText: "Yes, delete it!"
     }).then((result) => {
       if (result.isConfirmed) {
-        axios.delete(`https://assignment10-backend-three.vercel.app/deleteListing/${id}`)
+       axios.delete(`${import.meta.env.VITE_API_URL}/deleteListing/${id}`)
           .then(res => {
             if (res.data.deletedCount === 1) {
               Swal.fire({

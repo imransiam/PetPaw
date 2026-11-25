@@ -17,8 +17,12 @@ const ServiceDetails = () => {
     const fetchService = async () => {
       try {
         setLoading(true);
-        const response = await axios.get(`https://assignment10-backend-three.vercel.app/services/${id}`);
-        setService(response.data);
+       const response = await axios.get(`${import.meta.env.VITE_API_URL}/services/${id}`);
+
+console.log("API URL:", import.meta.env.VITE_API_URL);
+console.log("Service response:", response.data);
+
+setService(response.data);
         setLoading(false);
       } catch (err) {
         console.error(err);
@@ -44,8 +48,7 @@ const ServiceDetails = () => {
       productId: service?._id,
       email: user?.email
     };
-
-    axios.post('https://assignment10-backend-three.vercel.app/orders', formData)
+axios.post(`${import.meta.env.VITE_API_URL}/orders`, formData)
       .then(res => {
         console.log(res.data);
         Swal.fire({
