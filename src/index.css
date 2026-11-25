@@ -5,6 +5,8 @@
   themes: light --default, dark;
 }
 
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
 * {
   @apply transition-colors duration-300;
 }
@@ -23,8 +25,19 @@ body {
 [data-theme="light"] .CardStyle {
   background-color: #ffffff;
   color: #433422;
-  border: 1px solid rgba(217, 119, 6, 0.1);
+  border: 1px solid rgba(217, 119, 6, 0.15);
   box-shadow: 0 10px 25px -5px rgba(139, 92, 26, 0.1), 0 8px 10px -6px rgba(139, 92, 26, 0.1);
+}
+
+[data-theme="light"] .modal-box {
+  background-color: #ffffff !important;
+  color: #433422 !important;
+  border: 1px solid rgba(217, 119, 6, 0.2) !important;
+}
+
+[data-theme="light"] .modal-box h3,
+[data-theme="light"] .modal-box label {
+  color: #433422 !important;
 }
 
 [data-theme="dark"] body {
@@ -35,8 +48,19 @@ body {
 [data-theme="dark"] .CardStyle {
   background-color: #1c1917;
   color: #fef3c7;
-  border: 1px solid rgba(254, 243, 199, 0.05);
+  border: 1px solid rgba(254, 243, 199, 0.08);
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+}
+
+[data-theme="dark"] .modal-box {
+  background-color: #1c1917 !important;
+  color: #fef3c7 !important;
+  border: 1px solid rgba(254, 243, 199, 0.1) !important;
+}
+
+[data-theme="dark"] .modal-box h3,
+[data-theme="dark"] .modal-box label {
+  color: #fef3c7 !important;
 }
 
 .CardStyle:hover {
@@ -52,12 +76,16 @@ body {
   @apply bg-orange-600 border-none text-white hover:bg-orange-700;
 }
 
-input, textarea, select, .input {
+.form-control {
+  @apply flex flex-col gap-1.5 w-full;
+}
+
+input:not([type="checkbox"]), textarea, select, .input {
   color: #433422 !important;
   @apply bg-stone-100 border-stone-200 focus:ring-2 focus:ring-orange-500 transition-all outline-none;
 }
 
-[data-theme="dark"] input, 
+[data-theme="dark"] input:not([type="checkbox"]), 
 [data-theme="dark"] textarea, 
 [data-theme="dark"] select, 
 [data-theme="dark"] .input {
